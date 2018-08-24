@@ -11,11 +11,6 @@ use bertoost\placeholderurl\twig\TwigPlaceholderUrlExtension;
 class Plugin extends \craft\base\Plugin
 {
     /**
-     * @var bool
-     */
-    public $hasCpSettings = true;
-
-    /**
      * @var string
      */
     public $changelogUrl = 'https://raw.githubusercontent.com/bertoost/Craft-3-PlaceholderUrl/master/CHANGELOG.md';

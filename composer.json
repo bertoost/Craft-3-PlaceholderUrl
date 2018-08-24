@@ -21,7 +21,6 @@
   "extra": {
     "name": "Placeholder URL",
     "handle": "placeholderurl",
-    "hasSettings": true,
     "developer": "Bert Oost",
     "developerUrl": "https://bertoost.com",
     "documentationUrl": "https://github.com/bertoost/Craft-3-PlaceholderUrl/blob/master/README.md"
