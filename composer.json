@@ -1,0 +1,29 @@
+{
+  "name": "bertoost/craft-placeholderurl",
+  "description": "Craft 3 CMS plugin for URL functions in Twig with placeholders.",
+  "type": "craft-plugin",
+  "version": "1.0.0-alpha",
+  "keywords": [
+    "craft",
+    "craftcms",
+    "plugin",
+    "craftcms plugin",
+    "placeholder",
+    "url"
+  ],
+  "homepage": "https://github.com/bertoost/Craft-3-PlaceholderUrl",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "bertoost\\placeholderurl\\": "src/"
+    }
+  },
+  "extra": {
+    "name": "Placeholder URL",
+    "handle": "placeholderurl",
+    "hasSettings": true,
+    "developer": "Bert Oost",
+    "developerUrl": "https://bertoost.com",
+    "documentationUrl": "https://github.com/bertoost/Craft-3-PlaceholderUrl/blob/master/README.md"
+  }
+}
