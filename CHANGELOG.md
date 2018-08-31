@@ -3,6 +3,8 @@
 ## v1.1.0 - 2018-08-31
 
 ### Added
+
+- Added placholder-paths support (see docs!) 
 - Support for route params (with less-than (<) and greater-than (>) signs)
 
 ## v1.0.1 - 2018-08-24

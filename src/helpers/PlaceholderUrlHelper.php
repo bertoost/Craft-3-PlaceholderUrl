@@ -3,6 +3,7 @@
 namespace bertoost\placeholderurl\helpers;
 
 use craft\helpers\UrlHelper;
+use bertoost\placeholderurl\Plugin;
 
 /**
  * Class PlaceholderUrlHelper
@@ -14,6 +15,9 @@ class PlaceholderUrlHelper extends UrlHelper
      */
     public static function url(string $path = '', $params = null, string $scheme = null, bool $showScriptName = null): string
     {
+        $path = Plugin::getInstance()->getUrlManager()
+            ->replacePlaceholderPath($path);
+
         self::replacePlaceholders($path, $params, '<', '>');
         self::replacePlaceholders($path, $params);
 
@@ -25,6 +29,9 @@ class PlaceholderUrlHelper extends UrlHelper
      */
     public static function siteUrl(string $path = '', $params = null, string $scheme = null, int $siteId = null): string
     {
+        $path = Plugin::getInstance()->getUrlManager()
+            ->replacePlaceholderPath($path);
+
         self::replacePlaceholders($path, $params, '<', '>');
         self::replacePlaceholders($path, $params);
 
@@ -36,6 +43,9 @@ class PlaceholderUrlHelper extends UrlHelper
      */
     public static function cpUrl(string $path = '', $params = null, string $scheme = null): string
     {
+        $path = Plugin::getInstance()->getUrlManager()
+            ->replacePlaceholderPath($path);
+
         self::replacePlaceholders($path, $params, '<', '>');
         self::replacePlaceholders($path, $params);
 
