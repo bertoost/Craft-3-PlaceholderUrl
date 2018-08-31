@@ -2,54 +2,31 @@
 
 A simple solution for a writing and reading issue when having long URLs in your Twig templates. Using placeholders to be defined and parameters given to replace with.
 
-## Explanation
+## Placeholder URLs
 
-When you have a long url, like this;
-
-```twig
-{{ url('this/is/my/custom/url/to/a/detail/page/of/my/news') }}
-```
-
-There is not a big deal. But when the URL will contain a couple of dynamic parts, you have to write concatenates in Twig like this;
+These helpers are here to generate urls, with placeholders replaced by actual values.
 
 ```twig
-{{ url('this/' ~ entry.slug ~ '/url/to/' ~ someOtherUrlVar ~ '/of/my/' ~ entry.section.handle) }}
+{# generates: 'a/placeholder/path' #}
+{{ url('a/{phs}/path', { phs: 'placeholder' }) }}
 ```
 
-## Using placeholders
+[Read more here](docs/PlaceholderUrls.md)
 
-Using placeholders instead of concatenating strings together, it will looks like this;
+## Placeholder paths
 
-```twig
-{{ url('this/{slug}/url/to/{var}/of/my/{handle}', {
-    slug: entry.slug,
-    var: someOtherVar,
-    handle: entry.section.handle
-}) }}
-```
-
-Easy, right?!
-
-## Supported Twig functions
-
-- `{{ url() }}`
-- `{{ siteUrl() }}`
-- `{{ cpUrl() }}`
-
-## Support for PHP
-
-I couldn't overwrite the `UrlHelper` class, but I have added an own helper to help you in PHP.
+A more advanced usage for Craft CMS based applications without using hard-coded URLs. Which are even hard to remember all the time.
 
 ```php
-// don't forget to use it
-use bertoost\placeholderurl\helpers\PlaceholderUrlHelper;
-
-// from your code
-$url = PlaceholderUrlHelper::url('this/{slug}/url/to/{var}/of/my/{handle}', [
-    'slug'   => $entry->slug,
-    'var'    => $someOtherVar,
-    'handle' => $entry->section->handle,
-]);
+// register paths in php via an event listener
+$paths['account.dashboard'] = 'account';
+$paths['account.sub.details'] = 'account/<uid>/details';
 ```
 
-_Note:_ It also can do all the other things the `UrlHelper` can, since `PlaceholderUrlHelper` extends it.
+```twig
+{# calling them in Twig #}
+{{ url('account.dashboard') }}
+{{ url('account.sub.detail', { uid: '199f3fae-acfe-11e8-98d0-529269fb1459' }) }}
+```
+
+[Read more here](docs/PlaceholderPaths.md)

@@ -3,6 +3,7 @@
 namespace bertoost\placeholderurl\helpers;
 
 use craft\helpers\UrlHelper;
+use bertoost\placeholderurl\Plugin;
 
 /**
  * Class PlaceholderUrlHelper
@@ -14,6 +15,10 @@ class PlaceholderUrlHelper extends UrlHelper
      */
     public static function url(string $path = '', $params = null, string $scheme = null, bool $showScriptName = null): string
     {
+        $path = Plugin::getInstance()->getUrlManager()
+            ->replacePlaceholderPath($path);
+
+        self::replacePlaceholders($path, $params, '<', '>');
         self::replacePlaceholders($path, $params);
 
         return parent::url($path, $params, $scheme, $showScriptName);
@@ -24,6 +29,10 @@ class PlaceholderUrlHelper extends UrlHelper
      */
     public static function siteUrl(string $path = '', $params = null, string $scheme = null, int $siteId = null): string
     {
+        $path = Plugin::getInstance()->getUrlManager()
+            ->replacePlaceholderPath($path);
+
+        self::replacePlaceholders($path, $params, '<', '>');
         self::replacePlaceholders($path, $params);
 
         return parent::url($path, $params, $scheme, $siteId);
@@ -34,6 +43,10 @@ class PlaceholderUrlHelper extends UrlHelper
      */
     public static function cpUrl(string $path = '', $params = null, string $scheme = null): string
     {
+        $path = Plugin::getInstance()->getUrlManager()
+            ->replacePlaceholderPath($path);
+
+        self::replacePlaceholders($path, $params, '<', '>');
         self::replacePlaceholders($path, $params);
 
         return parent::cpUrl($path, $params, $scheme);
@@ -42,27 +55,26 @@ class PlaceholderUrlHelper extends UrlHelper
     /**
      * @param string     $path
      * @param array|null $params
+     * @param string     $start
+     * @param string     $end
      */
-    private static function replacePlaceholders(&$path, &$params = null)
+    private static function replacePlaceholders(&$path, &$params = null, $start = '{', $end = '}')
     {
-        if (stristr($path, '{') !== false
-            && stristr($path, '}') !== false
+        if (stristr($path, $start) !== false
+            && stristr($path, $end) !== false
             && is_array($params) && !empty($params)
         ) {
-            foreach ($params as $key => $value) {
+            $placeholders = [];
+            foreach ((array)$params as $name => $value) {
+                $key = $start . $name . $end;
+                $placeholders[$key] = $value;
 
-                $tag = sprintf('{%s}', $key);
-                if (stristr($path, $tag) !== false) {
-
-                    $path = str_replace($tag, $value, $path);
-                    unset($params[$key]);
+                if (strstr($path, $key) !== false) {
+                    unset($params[$name]);
                 }
             }
 
-            // set back to NULL, when empty
-            if (empty($params)) {
-                $params = null;
-            }
+            $path = strtr($path, $placeholders);
         }
     }
 }

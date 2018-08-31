@@ -2,6 +2,7 @@
 
 namespace bertoost\placeholderurl;
 
+use bertoost\placeholderurl\web\PlaceholderUrlManager;
 use Craft;
 use bertoost\placeholderurl\twig\TwigPlaceholderUrlExtension;
 
@@ -25,11 +26,24 @@ class Plugin extends \craft\base\Plugin
      */
     public function init()
     {
+        Craft::setAlias('@plugins/placeholderurls', $this->getBasePath());
         parent::init();
 
-        Craft::setAlias('@plugins/placeholderurls', $this->getBasePath());
+        $this->setComponents([
+            'urlManager' => PlaceholderUrlManager::class
+        ]);
 
+        // register Twig extension
         $extension = new TwigPlaceholderUrlExtension();
         Craft::$app->view->registerTwigExtension($extension);
+    }
+
+    /**
+     * @return PlaceholderUrlManager|object
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getUrlManager(): PlaceholderUrlManager
+    {
+        return $this->get('urlManager');
     }
 }
