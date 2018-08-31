@@ -161,8 +161,8 @@ public function init()
         PlaceholderUrlManager::class,
         PlaceholderUrlManager::EVENT_REGISTER_PLACEHOLDER_PATHS,
         function (PlaceholderPathEvent $event) {
-            foreach (AppRouteHelper::getRoutes() as $path => $value) {
-                $event->rules[$path] = $value;
+            foreach (SiteRouteHelper::$routes as $key => $config) {
+                $event->paths[$key] = $config['path'];
             }
         }
     );
