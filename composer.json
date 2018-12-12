@@ -18,6 +18,9 @@
       "bertoost\\placeholderurl\\": "src/"
     }
   },
+  "require": {
+    "craftcms/cms": "^3.0.0"
+  },
   "extra": {
     "name": "Placeholder URL",
     "handle": "placeholderurl",
