@@ -1,5 +1,11 @@
 # Craft CMS 3 - PlaceholderUrl Changelog
 
+## v1.1.1 - 2018-12-12
+
+### Added
+
+- Craft CMS v3 composer requirement added
+
 ## v1.1.0 - 2018-08-31
 
 ### Added
